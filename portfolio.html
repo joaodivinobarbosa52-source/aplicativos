@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>João Divino Barbosa | Gerente de Fazenda & Tecnologia no Campo</title>
+  <style>
+    :root {
+      --bg-main: #0a1a0a;
+      --bg-card: #112611;
+      --bg-card-hover: #173317;
+      --border-color: #1f421f;
+      --accent: #4ade80;
+      --accent-dark: #22c55e;
+      --text-main: #f0fdf4;
+      --text-muted: #a7f3d0;
+      --text-dim: #86efac;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 20px 16px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* Cabeçalho / Perfil */
+    .profile-header {
+      text-align: center;
+      padding: 24px 16px;
+      background: linear-gradient(180deg, #112611 0%, #0a1a0a 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .avatar-circle {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background-color: #173317;
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: rgba(74, 222, 128, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .bio-text {
+      font-size: 0.95rem;
+      color: #d1fae5;
+      max-width: 440px;
+      margin: 0 auto 18px;
+    }
+
+    /* Botão Principal WhatsApp */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 20px;
+      background-color: var(--accent-dark);
+      color: #052e16;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: transform 0.15s ease, background-color 0.2s ease;
+      box-shadow: 0 4px 14px rgba(34, 197, 94, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Pilares de Experiência */
+    .section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--accent);
+      margin: 24px 0 12px 4px;
+      font-weight: 700;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pillar-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .pillar-card strong {
+      display: block;
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .pillar-card span {
+      font-size: 0.82rem;
+      color: #bbf7d0;
+      display: block;
+      line-height: 1.35;
+    }
+
+    /* Lista de Aplicativos */
+    .app-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .app-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .app-card:hover {
+      background-color: var(--bg-card-hover);
+      border-color: var(--accent);
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .app-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .app-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background-color: #052e16;
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #166534;
+    }
+
+    .app-desc {
+      font-size: 0.88rem;
+      color: #d1fae5;
+      margin-bottom: 10px;
+    }
+
+    .app-link-text {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Rodapé e Redes */
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      padding: 8px 14px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--text-main);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: #6ee7b7;
+      opacity: 0.8;
+    }
+
+    .app-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .share-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .share-row .social-btn { flex: 1; text-align: center; cursor: pointer; font-family: inherit; }
+    .soon { font-size: 0.78rem; color: var(--text-dim); opacity: .8; padding-left: 4px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header class="profile-header">
+      <div class="avatar-circle">JB</div>
+      <h1>João Divino Barbosa</h1>
+      <div class="badge">+20 Anos de Experiência no Agro</div>
+      <p class="bio-text">
+        Gerente de Fazenda e Operador de Máquinas Pesadas. Da cabine à gestão de safra, desenvolvo ferramentas digitais simples e <strong>100% offline</strong> para controle de custos, manutenção e precisão no campo.
+      </p>
+      <a href="https://wa.me/5563991398471?text=Ol%C3%A1%20Jo%C3%A3o,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" class="btn-primary">
+        💬 Falar Comigo no WhatsApp
+      </a>
+    </header>
+
+    <!-- Pilares de Experiência (Focado apenas nos 3 pilares principais) -->
+    <div class="section-title">Experiência na Prática</div>
+    <div class="pillars-grid" style="grid-template-columns: 1fr;">
+      <div class="pillar-card" style="margin-bottom: 8px;">
+        <strong>🚜 Gestão & Operação de Campo</strong>
+        <span>Mais de 20 anos liderando equipes, janelas de plantio, colheita e operação direta de tratores e máquinas pesadas para nunca perder a prática.</span>
+      </div>
+      <div class="pillar-card" style="margin-bottom: 8px;">
+        <strong>📉 Controle de Custos & Manutenção</strong>
+        <span>Foco rigoroso em manutenção preventiva, economia de diesel, redução de quebras e aproveitamento máximo por hectare.</span>
+      </div>
+      <div class="pillar-card">
+        <strong>📱 Desenvolvimento de Sistemas Offline</strong>
+        <span>Criação de aplicativos leves em PWA que funcionam sem internet direto no celular no meio do talhão para facilitar o dia a dia da lavoura.</span>
+      </div>
+    </div>
+
+    <!-- Vitrine de Aplicativos -->
+    <div class="section-title">Soluções & Aplicativos Criados (10)</div>
+    <div class="app-list">
+
+      <div class="app-wrap" data-key="manutencao">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Controle de Manutenção / Frota</span>
+          <span class="app-tag">OFFLINE</span>
+        </div>
+        <p class="app-desc">
+          Máquinas, horímetro, alarmes de troca de óleo, manutenção preventiva, chat da equipe e relatórios em PDF.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div style="margin:8px 0 4px;padding:10px 12px;background:rgba(74,222,128,0.08);border:1px dashed rgba(74,222,128,0.4);border-radius:10px;font-size:0.85rem;color:#d1fae5;line-height:1.6;">
+        <strong style="color:#4ade80;">🔑 Login de teste</strong><br>
+        E-mail: <strong>teste@agrocontrole.app</strong><br>
+        Senha: <strong>123456</strong><br>
+        <span style="font-size:0.8rem;color:#a7f3d0;">No app de Manutenção, não precisa de senha: toque no cartão <strong>🧪 Teste</strong>.</span>
+      </div>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="horimetro">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Controle de Horímetro</span>
+          <span class="app-tag">OFFLINE</span>
+        </div>
+        <p class="app-desc">
+          Horímetro inicial e final com horas calculadas, consumo de combustível (L/h), máquina própria ou terceirizada e relatório em PDF.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="plantadeira">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Calculadora de Plantadeira & Engrenagens</span>
+          <span class="app-tag">CAMPO</span>
+        </div>
+        <p class="app-desc">
+          Cálculo rápido de relação de engrenagens (motora/movida), população de sementes, germinação e distribuição de adubo para soja e milho.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="trena">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Trena / Medição e Curvas de Nível</span>
+          <span class="app-tag">GPS</span>
+        </div>
+        <p class="app-desc">
+          Medição por GPS e satélite: área, curvas de nível e cerca, com talhões sincronizados.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="ciclo">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Ciclo da Planta</span>
+          <span class="app-tag">SAFRA</span>
+        </div>
+        <p class="app-desc">
+          Acompanhamento de lavouras e cultivares, com revista em PDF por variedade.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="estoque">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Controle de Estoque & Receituário</span>
+          <span class="app-tag">INSUMOS</span>
+        </div>
+        <p class="app-desc">
+          Estoque de insumos com entradas, saídas, empréstimos, código de barras, foto do rótulo e receituário.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="telemetria">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Telemetria & Rastreamento</span>
+          <span class="app-tag">GPS</span>
+        </div>
+        <p class="app-desc">
+          Acompanhamento das máquinas no mapa com a cobertura pintada em tempo real.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="pluviometro">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Pluviômetro</span>
+          <span class="app-tag">SAFRA</span>
+        </div>
+        <p class="app-desc">
+          Registro diário, mensal e anual de chuvas por talhão/fazenda, com gráficos comparativos.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="pragas">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Avaliação de Pragas (Soja & Milho)</span>
+          <span class="app-tag">CAMPO</span>
+        </div>
+        <p class="app-desc">
+          Monitoramento de pragas direto no talhão, com fotos e registro das avaliações para soja e milho.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+
+      <div class="app-wrap" data-key="fotosat">
+      <a href="#" target="_blank" rel="noopener" class="app-card">
+        <div class="app-header">
+          <span class="app-title">Foto no Mapa / Satélite</span>
+          <span class="app-tag">GPS</span>
+        </div>
+        <p class="app-desc">
+          Fotos geolocalizadas sobre mapa de satélite, para registrar e acompanhar a lavoura.
+        </p>
+        <span class="app-link-text">Acessar aplicativo →</span>
+      </a>
+      <div class="share-row"></div>
+      </div>
+    </div>
+
+    <div class="section-title">Compartilhar meu portfólio</div>
+    <div class="social-row" id="share-page" style="margin-top:0"></div>
+
+    <!-- Links das Redes Sociais -->
+    <div class="social-row">
+      <a href="#" target="_blank" class="social-btn">LinkedIn</a>
+      <a href="#" target="_blank" class="social-btn">Instagram</a>
+      <a href="#" target="_blank" class="social-btn">TikTok</a>
+      <a href="#" target="_blank" class="social-btn">Facebook</a>
+    </div>
+
+    <footer>
+      João Divino Barbosa • Gestão Rural & Tecnologia Aplicada no Campo
+    </footer>
+  </div>
+
+
+  <script>
+    // ====== COLE AQUI OS LINKS DOS SEUS APPS ======
+    var LINKS = {
+      manutencao: "https://agrocontroleon.vercel.app/",
+      horimetro: "",
+      plantadeira: "https://calculadora-agro.vercel.app/",
+      trena: "https://gpstrena.vercel.app/",
+      ciclo: "https://revistaeletronicaon.vercel.app/",
+      estoque: "",
+      telemetria: "",
+      pluviometro: "",
+      pragas: "https://pragas-agro.vercel.app/",
+      fotosat: "https://fotosat-one.vercel.app/"
+    };
+    // ==============================================
+    var NOME = "João Divino Barbosa";
+
+    function btn(label, href) {
+      var a = document.createElement("a");
+      a.className = "social-btn"; a.textContent = label;
+      a.href = href; a.target = "_blank"; a.rel = "noopener";
+      return a;
+    }
+    function copiar(url, b) {
+      function ok() { var t = b.textContent; b.textContent = "Copiado ✓"; setTimeout(function(){ b.textContent = t; }, 1800); }
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function(){ prompt("Copie o link:", url); });
+      else prompt("Copie o link:", url);
+    }
+    function barra(el, url, texto) {
+      var enc = encodeURIComponent(url);
+      el.appendChild(btn("WhatsApp", "https://wa.me/?text=" + encodeURIComponent(texto + " " + url)));
+      el.appendChild(btn("Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + enc));
+      el.appendChild(btn("LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + enc));
+      var c = document.createElement("button");
+      c.type = "button"; c.className = "social-btn"; c.textContent = "Copiar link";
+      c.onclick = function(){ copiar(url, c); };
+      el.appendChild(c);
+    }
+
+    document.querySelectorAll(".app-wrap").forEach(function (w) {
+      var url = LINKS[w.dataset.key], a = w.querySelector(".app-card"), row = w.querySelector(".share-row");
+      var nome = w.querySelector(".app-title").textContent;
+      if (!url) {
+        a.removeAttribute("href"); a.style.opacity = ".75";
+        row.innerHTML = '<span class="soon">Link em breve</span>';
+        return;
+      }
+      a.href = url;
+      barra(row, url, "Conheça o app " + nome + ", feito por " + NOME + " para o campo:");
+    });
+
+    var pagina = location.href.split("#")[0];
+    barra(document.getElementById("share-page"), pagina, "Portfólio de " + NOME + " — gestão rural e aplicativos para o campo:");
+
+    // esconde redes sociais ainda sem link
+    document.querySelectorAll('.social-row a.social-btn[href="#"]').forEach(function (a) { a.style.display = "none"; });
+  </script>
+</body>
+</html>
