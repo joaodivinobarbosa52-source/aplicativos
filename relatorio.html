@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Relatório de Visitas | Portfólio</title>
+  <style>
+    :root {
+      --bg-main: #0a1a0a; --bg-card: #112611; --border-color: #1f421f;
+      --accent: #4ade80; --accent-dark: #22c55e;
+      --text-main: #f0fdf4; --text-muted: #a7f3d0; --text-dim: #86efac;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--bg-main); color: var(--text-main); line-height: 1.5; padding: 20px 16px 40px; display: flex; justify-content: center; }
+    .container { width: 100%; max-width: 560px; }
+    h1 { font-size: 1.25rem; margin-bottom: 2px; }
+    .sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+    .card h2 { font-size: 0.9rem; color: var(--accent); margin-bottom: 10px; }
+    .hidden { display: none !important; }
+
+    input { width: 100%; padding: 12px; margin-bottom: 8px; background: #0a1a0a; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 1rem; }
+    button { cursor: pointer; font-size: 0.95rem; }
+    .btn { width: 100%; padding: 13px; border: 0; border-radius: 10px; background: var(--accent-dark); color: #052e16; font-weight: 700; margin-bottom: 8px; }
+    .btn.sec { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+    .erro { color: #fca5a5; font-size: 0.85rem; margin-top: 6px; }
+
+    .periodos { display: flex; gap: 6px; margin-bottom: 12px; }
+    .periodos button { flex: 1; padding: 9px 4px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-muted); font-weight: 600; font-size: 0.82rem; }
+    .periodos button.on { border-color: var(--accent); color: var(--text-main); background: #173317; }
+
+    .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+    .numeros div { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 8px; text-align: center; }
+    .numeros b { display: block; font-size: 1.6rem; color: var(--accent); line-height: 1.1; }
+    .numeros span { font-size: 0.74rem; color: var(--text-muted); }
+
+    .dias { display: flex; align-items: flex-end; gap: 4px; height: 110px; }
+    .dias .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+    .dias .barra { width: 100%; background: var(--accent-dark); border-radius: 4px 4px 0 0; min-height: 2px; }
+    .dias .val { font-size: 0.68rem; color: var(--text-muted); height: 14px; }
+    .dias-rot { display: flex; gap: 4px; margin-top: 4px; }
+    .dias-rot span { flex: 1; text-align: center; font-size: 0.6rem; color: var(--text-dim); }
+
+    .lin { margin-bottom: 8px; }
+    .lin .topo { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 3px; gap: 8px; }
+    .lin .topo span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lin .trilho { height: 6px; background: #0a1a0a; border-radius: 3px; }
+    .lin .trilho i { display: block; height: 100%; background: var(--accent-dark); border-radius: 3px; }
+    .vazio { font-size: 0.85rem; color: var(--text-dim); }
+
+    .visita { padding: 8px 0; border-top: 1px solid var(--border-color); font-size: 0.82rem; }
+    .visita:first-child { border-top: 0; }
+    .visita b { color: var(--text-main); }
+    .visita small { display: block; color: var(--text-muted); font-size: 0.76rem; }
+    .rodape { text-align: center; font-size: 0.74rem; color: var(--text-dim); margin-top: 16px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📊 Relatório de visitas</h1>
+  <p class="sub">Quem está abrindo o link do portfólio</p>
+
+  <!-- Login -->
+  <div id="telaLogin" class="card">
+    <h2>Entrar (só o administrador)</h2>
+    <button class="btn" id="btnGoogle" type="button">Entrar com Google</button>
+    <input id="email" type="email" placeholder="E-mail" autocomplete="username">
+    <input id="senha" type="password" placeholder="Senha" autocomplete="current-password">
+    <button class="btn sec" id="btnEmail" type="button">Entrar com e-mail e senha</button>
+    <div id="erroLogin" class="erro"></div>
+  </div>
+
+  <!-- Relatório -->
+  <div id="telaRel" class="hidden">
+    <div class="periodos" id="periodos">
+      <button data-p="hoje" type="button">Hoje</button>
+      <button data-p="7" type="button" class="on">7 dias</button>
+      <button data-p="30" type="button">30 dias</button>
+      <button data-p="tudo" type="button">Tudo</button>
+    </div>
+
+    <div class="numeros">
+      <div><b id="nVisitas">0</b><span>visitas</span></div>
+      <div><b id="nPessoas">0</b><span>pessoas diferentes</span></div>
+      <div><b id="nCidades">0</b><span>cidades</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Visitas por dia (últimos 14 dias)</h2>
+      <div class="dias" id="dias"></div>
+      <div class="dias-rot" id="diasRot"></div>
+    </div>
+
+    <div class="card"><h2>Cidades</h2><div id="lCidades"></div></div>
+    <div class="card"><h2>Estados</h2><div id="lEstados"></div></div>
+    <div class="card"><h2>Link personalizado (?de=)</h2><div id="lDe"></div></div>
+    <div class="card"><h2>Veio de</h2><div id="lOrigem"></div></div>
+    <div class="card"><h2>Aparelho</h2><div id="lAparelho"></div></div>
+    <div class="card"><h2>Navegador / aplicativo</h2><div id="lNav"></div></div>
+    <div class="card"><h2>Últimas visitas</h2><div id="lUltimas"></div></div>
+
+    <button class="btn sec" id="btnAtualizar" type="button">Atualizar</button>
+    <button class="btn sec" id="btnSair" type="button">Sair</button>
+    <p class="rodape">Neste aparelho, suas próprias visitas ao portfólio não são contadas.</p>
+  </div>
+  <div id="erroRel" class="erro"></div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyDGPg83eT_YV54gMMNLNe3Zp5Aa-p1LXnw",
+    authDomain: "licencas-apps-15352.firebaseapp.com",
+    projectId: "licencas-apps-15352",
+    storageBucket: "licencas-apps-15352.firebasestorage.app",
+    messagingSenderId: "80975472822",
+    appId: "1:80975472822:web:cd5896758b9dcf827cde17"
+  };
+  var ADMIN = "joaodivinobarbosa2929@gmail.com";
+
+  var app = initializeApp(firebaseConfig);
+  var auth = getAuth(app);
+  var db = getFirestore(app);
+  var visitas = [];
+  var periodo = "7";
+  var TZ = "America/Sao_Paulo";
+  var fmtDia = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
+  var fmtHora = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+  function $(id) { return document.getElementById(id); }
+  function msgErro(e) {
+    var c = e && e.code || "";
+    if (c.indexOf("permission-denied") >= 0) return "Sem permissão para ler. Falta publicar as regras do Firestore (ou entrar com o e-mail de administrador).";
+    if (c.indexOf("unauthorized-domain") >= 0) return "Domínio não autorizado: no Firebase, em Authentication > Configurações > Domínios autorizados, adicione aplicativos-one.vercel.app.";
+    if (c.indexOf("operation-not-allowed") >= 0) return "Esse tipo de login não está ativado no Firebase (Authentication > Método de login).";
+    if (c.indexOf("invalid-credential") >= 0 || c.indexOf("wrong-password") >= 0 || c.indexOf("user-not-found") >= 0) return "E-mail ou senha incorretos.";
+    if (c.indexOf("popup") >= 0) return "A janela do Google foi fechada ou bloqueada. Tente de novo.";
+    return "Erro: " + (c || (e && e.message) || e);
+  }
+
+  $("btnGoogle").onclick = function () {
+    $("erroLogin").textContent = "";
+    signInWithPopup(auth, new GoogleAuthProvider()).catch(function (e) { $("erroLogin").textContent = msgErro(e); });
+  };
+  $("btnEmail").onclick = function () {
+    $("erroLogin").textContent = "";
+    signInWithEmailAndPassword(auth, $("email").value.trim(), $("senha").value).catch(function (e) { $("erroLogin").textContent = msgErro(e); });
+  };
+  $("btnSair").onclick = function () { signOut(auth); };
+  $("btnAtualizar").onclick = carregar;
+
+  document.querySelectorAll("#periodos button").forEach(function (b) {
+    b.onclick = function () {
+      periodo = b.dataset.p;
+      document.querySelectorAll("#periodos button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      desenhar();
+    };
+  });
+
+  onAuthStateChanged(auth, function (u) {
+    $("erroRel").textContent = "";
+    if (!u) { $("telaLogin").classList.remove("hidden"); $("telaRel").classList.add("hidden"); return; }
+    if ((u.email || "").toLowerCase() !== ADMIN) {
+      $("erroLogin").textContent = "Esse e-mail (" + u.email + ") não é o do administrador.";
+      signOut(auth); return;
+    }
+    try { localStorage.setItem("pf_dono", "1"); } catch (e) {}
+    $("telaLogin").classList.add("hidden");
+    $("telaRel").classList.remove("hidden");
+    carregar();
+  });
+
+  async function carregar() {
+    $("erroRel").textContent = "";
+    try {
+      var snap = await getDocs(query(collection(db, "visitas_portfolio"), orderBy("ts", "desc"), limit(5000)));
+      visitas = [];
+      snap.forEach(function (d) {
+        var x = d.data();
+        if (!x.ts || !x.ts.toDate) return;
+        x.data = x.ts.toDate();
+        visitas.push(x);
+      });
+      desenhar();
+    } catch (e) { $("erroRel").textContent = msgErro(e); }
+  }
+
+  function filtrar() {
+    var agora = Date.now(), hoje = fmtDia.format(new Date());
+    return visitas.filter(function (v) {
+      if (periodo === "tudo") return true;
+      if (periodo === "hoje") return fmtDia.format(v.data) === hoje;
+      return v.data.getTime() >= agora - Number(periodo) * 864e5;
+    });
+  }
+
+  function contar(lista, fn) {
+    var m = {};
+    lista.forEach(function (v) { var k = fn(v); if (k) m[k] = (m[k] || 0) + 1; });
+    return Object.keys(m).map(function (k) { return [k, m[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
+  }
+
+  function ranking(id, itens, max) {
+    var el = $(id); el.innerHTML = "";
+    if (!itens.length) { el.innerHTML = '<div class="vazio">Sem dados neste período.</div>'; return; }
+    var topo = itens[0][1];
+    itens.slice(0, max || 8).forEach(function (it) {
+      var l = document.createElement("div"); l.className = "lin";
+      var t = document.createElement("div"); t.className = "topo";
+      var a = document.createElement("span"); a.textContent = it[0];
+      var b = document.createElement("span"); b.textContent = it[1];
+      t.appendChild(a); t.appendChild(b);
+      var tr = document.createElement("div"); tr.className = "trilho";
+      var i = document.createElement("i"); i.style.width = Math.max(4, Math.round(it[1] / topo * 100)) + "%";
+      tr.appendChild(i); l.appendChild(t); l.appendChild(tr); el.appendChild(l);
+    });
+  }
+
+  function desenhar() {
+    var lista = filtrar();
+    $("nVisitas").textContent = lista.length;
+    var pessoas = {}, cidades = {};
+    lista.forEach(function (v) { pessoas[v.vid] = 1; if (v.cidade) cidades[v.cidade + "|" + v.regiao] = 1; });
+    $("nPessoas").textContent = Object.keys(pessoas).length;
+    $("nCidades").textContent = Object.keys(cidades).length;
+
+    // gráfico dos últimos 14 dias (sempre)
+    var porDia = {};
+    visitas.forEach(function (v) { var k = fmtDia.format(v.data); porDia[k] = (porDia[k] || 0) + 1; });
+    var chaves = [];
+    for (var i = 13; i >= 0; i--) chaves.push(fmtDia.format(new Date(Date.now() - i * 864e5)));
+    var maxDia = Math.max.apply(null, chaves.map(function (k) { return porDia[k] || 0; }).concat([1]));
+    $("dias").innerHTML = ""; $("diasRot").innerHTML = "";
+    chaves.forEach(function (k) {
+      var n = porDia[k] || 0;
+      var col = document.createElement("div"); col.className = "col";
+      var val = document.createElement("div"); val.className = "val"; val.textContent = n || "";
+      var bar = document.createElement("div"); bar.className = "barra"; bar.style.height = Math.round(n / maxDia * 80) + "px";
+      col.appendChild(val); col.appendChild(bar); $("dias").appendChild(col);
+      var rot = document.createElement("span"); rot.textContent = k.slice(8) + "/" + k.slice(5, 7); $("diasRot").appendChild(rot);
+    });
+
+    ranking("lCidades", contar(lista, function (v) { return v.cidade ? v.cidade + (v.regiao ? " - " + v.regiao : "") : ""; }), 10);
+    ranking("lEstados", contar(lista, function (v) { return v.regiao ? v.regiao + (v.paisCod && v.paisCod !== "BR" ? " (" + v.paisCod + ")" : "") : ""; }), 8);
+    ranking("lDe", contar(lista, function (v) { return v.de; }), 10);
+    ranking("lOrigem", contar(lista, function (v) { return v.origem || "Direto / não informado"; }), 8);
+    ranking("lAparelho", contar(lista, function (v) { return v.aparelho + (v.so ? " · " + v.so : ""); }), 6);
+    ranking("lNav", contar(lista, function (v) { return v.nav; }), 8);
+
+    var ult = $("lUltimas"); ult.innerHTML = "";
+    if (!lista.length) { ult.innerHTML = '<div class="vazio">Nenhuma visita neste período ainda.</div>'; return; }
+    lista.slice(0, 25).forEach(function (v) {
+      var d = document.createElement("div"); d.className = "visita";
+      var b = document.createElement("b");
+      b.textContent = fmtHora.format(v.data) + " · " + (v.cidade ? v.cidade + (v.regiao ? " - " + v.regiao : "") : "Local não identificado");
+      var s = document.createElement("small");
+      s.textContent = [v.aparelho, v.nav, v.de ? "link: ?de=" + v.de : "", v.novo ? "primeira vez" : "já tinha vindo"].filter(Boolean).join(" · ");
+      d.appendChild(b); d.appendChild(s); ult.appendChild(d);
+    });
+  }
+</script>
+</body>
+</html>
